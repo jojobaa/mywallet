@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import icon from "./images/MyWallet.png"
+// import { Link } from "react-router-dom";
 
 export default function Login() {
     return (
-        <LoginInputs>
-            <Header><img src={icon} alt="" /></Header>
-            <FormContainer>
-                <form onSubmit="">
+        <ContainerNovaEntrada>
+            <Header>Nova entrada</Header>
+            <Input>
+            <form onSubmit="">
                     <input
                         data-identifier="input-email"
                         type={'text'}
-                        placeholder={"E-mail"}
+                        placeholder={"Valor"}
                         onChange={(e) => "setEmail(e.target.value)"}
                         disabled="{carregando}"
                         color={"#DBDBDB"}
@@ -19,57 +18,34 @@ export default function Login() {
                     <input
                         data-identifier="input-password"
                         type={'text'}
-                        placeholder={"Senha"}
+                        placeholder={"Descrição"}
                         onChange={(e) => "setSenha(e.target.value)"}
                         disabled="{carregando}">
                     </input>
-                    <button data-identifier="login-btn" text={"Entrar"} disabled="{carregando}">Entrar</button>
-                    <Link to="/cadastre"><p data-identifier="sign-up-action">Primeira vez? Cadastre-se!</p></Link>
+                    <button data-identifier="login-btn" text={"Entrar"} disabled="{carregando}">Salvar Entrada</button>
                 </form>
-            </FormContainer>
-        </LoginInputs>
+            </Input>
+        </ContainerNovaEntrada>
     )
 }
-
 const Header = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+color: #FFFFFF;
+font-family: 'Raleway', sans-serif;
+font-size: 26px;
 `
-const LoginInputs = styled.div`
-background-color:#8C11BE;
+const ContainerNovaEntrada = styled.div`
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column;
 height: 100vh;
-form{
+background-color:#8C11BE;
+`
+const Input = styled.div`
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: center;
-}
-button{
-width: 303px;
-height: 45px;
-margin-top: 5px;
-font-size: 20px;
-background-color:#A328D6 ;
-color: #FFFFFF;
-border: none;
-font-family: 'Raleway', sans-serif;
-border-radius: 5px;
-}
-p{
-font-family: 'Raleway', sans-serif;
-font-size: 14px;
-color: #52B6FF;
-text-decoration : none;
-padding-top: 20px;
-}
-`
-const FormContainer = styled.div`
 input{
+display: block;
 margin-top: 5px;
 border: none;
 border: 1px solid #D4D4D4;
@@ -85,4 +61,15 @@ font-family: 'Raleway', sans-serif;
 font-size: 20px;
 color:#000000;
 }
+button{
+    width: 303px;
+    height: 45px;
+    margin-top: 5px;
+    font-size: 20px;
+    background-color:#A328D6 ;
+    color: #FFFFFF;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 5px;
+    }
 `
