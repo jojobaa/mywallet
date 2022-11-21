@@ -65,6 +65,7 @@ p{
     height: 46px;
     font-family: 'Raleway', sans-serif;
     color:#868686;
+    line-height: 24px;
 }
 `
 const Entradas = styled.div`

@@ -6,7 +6,7 @@ export default function Login() {
         <ContainerNovaEntrada>
             <Header>Nova entrada</Header>
             <Input>
-            <form onSubmit="">
+                <form onSubmit="">
                     <input
                         data-identifier="input-email"
                         type={'text'}
@@ -29,6 +29,8 @@ export default function Login() {
     )
 }
 const Header = styled.div`
+margin-bottom: 20px;
+margin-right: 150px;
 color: #FFFFFF;
 font-family: 'Raleway', sans-serif;
 font-size: 26px;
@@ -46,7 +48,7 @@ display: flex;
 flex-direction: column;
 input{
 display: block;
-margin-top: 5px;
+margin-top: 10px;
 border: none;
 border: 1px solid #D4D4D4;
 border-radius: 5px;
@@ -56,6 +58,7 @@ background-color:#FFFFFF;
 color:#000000;
 }
 input::placeholder{
+    padding-left: 15px;
 color: #D4D4D4;
 font-family: 'Raleway', sans-serif;
 font-size: 20px;
@@ -64,7 +67,7 @@ color:#000000;
 button{
     width: 303px;
     height: 45px;
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 20px;
     background-color:#A328D6 ;
     color: #FFFFFF;

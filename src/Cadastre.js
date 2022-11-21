@@ -38,11 +38,15 @@ export default function Login() {
     )
 }
 const Header = styled.div`
+margin-bottom: 20px;
 display: flex;
 align-items: center;
 justify-content: center;
 `
 const CadastreInputs = styled.div`
+a{
+    text-decoration: none;
+}
 background-color:#8C11BE;
 display: flex;
 align-items: center;
@@ -56,7 +60,7 @@ align-items: center;
 justify-content: center;
 }
 input{
-margin-top: 5px;
+margin-top: 10px;
 border: none;
 border: 1px solid #D4D4D4;
 border-radius: 5px;
@@ -68,11 +72,12 @@ color: #D4D4D4;
 font-family: 'Raleway', sans-serif;
 font-size: 20px;
 color:#000000;
+padding-left: 15px;
 }
 button{
 width: 303px;
 height: 45px;
-margin-top: 5px;
+margin-top: 10px;
 font-size: 20px;
 background-color:#A328D6 ;
 color: #FFFFFF;
@@ -84,6 +89,6 @@ p{
 padding-top: 20px;
 font-family: 'Raleway', sans-serif;
 font-size: 14px;
-color: #52B6FF;
+color: #FFFFFF;
 }
 `

@@ -12,17 +12,17 @@ export default function Login() {
                         data-identifier="input-email"
                         type={'text'}
                         placeholder={"E-mail"}
-                        onChange={(e) => "setEmail(e.target.value)"}
-                        disabled="{carregando}"
+                        // onChange={(e) => "setEmail(e.target.value)"}
+                        // disabled="{carregando}"
                         color={"#DBDBDB"}
                     ></input>
                     <input
                         data-identifier="input-password"
                         type={'text'}
                         placeholder={"Senha"}
-                        onChange={(e) => "setSenha(e.target.value)"}
-                        disabled="{carregando}">
-                    </input>
+                        // onChange={(e) => "setSenha(e.target.value)"}
+                        // disabled="{carregando}">
+                    ></input>
                     <button data-identifier="login-btn" text={"Entrar"} disabled="{carregando}">Entrar</button>
                     <Link to="/cadastre"><p data-identifier="sign-up-action">Primeira vez? Cadastre-se!</p></Link>
                 </form>
@@ -33,10 +33,14 @@ export default function Login() {
 
 const Header = styled.div`
 display: flex;
+margin-bottom: 20px;
 align-items: center;
 justify-content: center;
 `
 const LoginInputs = styled.div`
+a{
+    text-decoration: none;
+}
 background-color:#8C11BE;
 display: flex;
 align-items: center;
@@ -52,7 +56,7 @@ justify-content: center;
 button{
 width: 303px;
 height: 45px;
-margin-top: 5px;
+margin-top: 10px;
 font-size: 20px;
 background-color:#A328D6 ;
 color: #FFFFFF;
@@ -63,14 +67,14 @@ border-radius: 5px;
 p{
 font-family: 'Raleway', sans-serif;
 font-size: 14px;
-color: #52B6FF;
+color: #FFFFFF;
 text-decoration : none;
 padding-top: 20px;
 }
 `
 const FormContainer = styled.div`
 input{
-margin-top: 5px;
+margin-top: 10px;
 border: none;
 border: 1px solid #D4D4D4;
 border-radius: 5px;
@@ -84,5 +88,6 @@ color: #D4D4D4;
 font-family: 'Raleway', sans-serif;
 font-size: 20px;
 color:#000000;
+padding-left: 15px;
 }
 `
