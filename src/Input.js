@@ -1,11 +1,15 @@
-import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ContextAPI from "./ContextAPI";
 
 export default function Inputs() {
     const [valor, setValor] = useState(0);
     const [descricao, setDescricao] = useState("");
+    const { usuario } = useContext(ContextAPI);
+    const navigate = useNavigate();
+
 
     function dadosNovaEntrada(e) {
         e.preventDefault(); 
@@ -15,12 +19,12 @@ export default function Inputs() {
             {
                 valor: valor,
                 descricao: descricao,
+                nome: usuario.name,
                 type: "input"
             }
         );
-        promise1.then((answer) => {
-            setDescricao(answer.data);
-            Navigate("/registration", {});
+        promise1.then(() => {
+            navigate("/registration", {})
         });
 
         promise1.catch((error) => {
@@ -32,7 +36,7 @@ export default function Inputs() {
         <ContainerNovaEntrada>
             <Header>Nova entrada</Header>
             <Input>
-                <form onSubmit="">
+                <form onSubmit={dadosNovaEntrada}>
                     <input
                         type={'number'}
                         placeholder={"Valor"}
@@ -44,7 +48,7 @@ export default function Inputs() {
                         placeholder={"Descrição"}
                         onChange={(e) => setDescricao(e.target.value)}>
                     </input>
-                    <button text={"Entrar"} onClick={dadosNovaEntrada}>Salvar Entrada</button>
+                    <button text={"Entrar"}>Salvar Entrada</button>
                 </form>
             </Input>
         </ContainerNovaEntrada>

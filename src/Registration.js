@@ -1,18 +1,34 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ContextAPI from "./ContextAPI";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Registration() {
+    const [registration, setRegistration] = useState({})
     const { setUsuario, usuario } = useContext(ContextAPI);
     const navigate = useNavigate();
 
     function desconectar() {
-        localStorage.clear()
-        setUsuario([])
+        localStorage.clear();
+        setUsuario({});
         navigate("/");
     }
+
+    useEffect(() => {
+        const promise1 = axios.get("http://localhost:5000/registrations", {
+            headers: { Authorization: "Bearer " + usuario.token },
+        });
+
+        promise1.then((answer) => {
+            setRegistration(answer.data);
+        });
+
+        promise1.catch((error) => {
+            alert(error.response.data.message);
+        });
+    }, []);
 
     return (
         <ContainerRegistro>
@@ -20,12 +36,29 @@ export default function Registration() {
                 <div>Olá, {usuario.name}</div>
                 <div><ion-icon name="exit-outline" onClick={desconectar}></ion-icon></div>
             </Header>
-            <Registro>
-                <p>
-                    Não há registros de
-                    entrada ou saída
-                </p>
+            <Registro justifycontent={registration?.registration?.length === 0 ? "center" : "flex-start"}>
+                {registration?.registration?.length === 0 ? <p>Não há registros de entrada ou saída.</p> :
+                    <>
+                        {registration?.registration?.map((registration) => (
+                            <Registros key={registration._id}>
+                                <Valores>
+                                    <Info fontweight="400" fontsize="16px" lineheight="18.78px" color="#C6C6C6">{registration.createdAt}</Info>
+                                    <Info fontweight="400" fontsize="16px" lineheight="18.78px" color="#000000" marginleft="10px">
+                                        {registration.description}
+                                    </Info>
+                                </Valores>
+                                <>
+                                    <Info fontweight="400" fontsize="16px" lineheight="18.78px" justiyself="end" color={registration.type === "income" ? "#03AC00" : "#C70000"}>{registration.price.toFixed(2).replace(".", ",")}</Info>
+                                </>
+                            </Registros>
+                        ))}
+                    </>}
             </Registro>
+            <Saldo display={registration?.registration?.length === 0 ? "none" : "flex"}>
+                <Info fontweight="700" fontsize="17px" lineheight="19.96px" color="#000000">SALDO</Info>
+                <Info fontweight="400" fontsize="17px" lineheight="19.96px" color={registration?.balance < 0 ? "#C70000" : "#03AC00"}>{registration?.balance}</Info>
+            </Saldo>
+
             <Entradas>
                 <Link to="/input">
                     <NovaEntrada>
@@ -118,4 +151,25 @@ color:#FFFFFF;
 width: 156px;
 height: 114px;
 margin:10px;
+`
+const Registros = styled.div`
+justify-content: ${(props) => props.justifycontent};
+display:flex;
+`
+const Valores = styled.div`
+display:flex;
+justify-content: flex-start;
+`
+const Info = styled.div`
+font-family: "Raleway";
+font-weight: ${(props) => props.fontweight} !important;
+font-size: ${(props) => props.fontsize} !important;
+line-height: ${(props) => props.lineheight} !important;
+color: ${(props) => props.color} !important;
+margin-left: ${(props) => props.marginleft};
+margin-right: ${(props) => props.marginright}; 
+justify-self: ${(props) => props.justiyself};
+`
+const Saldo = styled.div`
+display:flex;
 `
