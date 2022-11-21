@@ -1,28 +1,49 @@
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Login() {
+export default function Input() {
+    const [valor, setValor] = useState(0);
+    const [descricao, setDescricao] = useState("");
+
+    function dadosNovaEntrada(e) {
+        e.preventDefault(); 
+
+        const promise1 = axios.post(
+            "http://localhost:5000/registrations",
+            {
+                valor: valor,
+                descricao: descricao,
+            }
+        );
+        promise1.then((answer) => {
+            setDescricao(answer.data);
+            Navigate("/registration", {});
+        });
+
+        promise1.catch((error) => {
+            alert(error.response.data.message);
+        });
+    }
+
     return (
         <ContainerNovaEntrada>
             <Header>Nova entrada</Header>
             <Input>
                 <form onSubmit="">
                     <input
-                        data-identifier="input-email"
-                        type={'text'}
+                        type={'number'}
                         placeholder={"Valor"}
-                        onChange={(e) => "setEmail(e.target.value)"}
-                        disabled="{carregando}"
-                        color={"#DBDBDB"}
+                        onChange={(e) => setValor(e.target.value)}
+                        step="0.01"
                     ></input>
                     <input
-                        data-identifier="input-password"
                         type={'text'}
                         placeholder={"Descrição"}
-                        onChange={(e) => "setSenha(e.target.value)"}
-                        disabled="{carregando}">
+                        onChange={(e) => setDescricao(e.target.value)}>
                     </input>
-                    <button data-identifier="login-btn" text={"Entrar"} disabled="{carregando}">Salvar Entrada</button>
+                    <button text={"Entrar"} onClick={dadosNovaEntrada}>Salvar Entrada</button>
                 </form>
             </Input>
         </ContainerNovaEntrada>
