@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
 
-export default function Input() {
+export default function Inputs() {
     const [valor, setValor] = useState(0);
     const [descricao, setDescricao] = useState("");
 
@@ -15,6 +15,7 @@ export default function Input() {
             {
                 valor: valor,
                 descricao: descricao,
+                type: "input"
             }
         );
         promise1.then((answer) => {

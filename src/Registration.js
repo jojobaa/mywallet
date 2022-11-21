@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ContextAPI from "./ContextAPI";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Registration() {
     const { setUsuario, usuario } = useContext(ContextAPI);
     const navigate = useNavigate();
 

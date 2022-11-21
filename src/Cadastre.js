@@ -4,7 +4,7 @@ import icon from "./images/MyWallet.png"
 import { useState } from "react";
 import axios from "axios"
 
-export default function Login() {
+export default function Cadastre() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [nome, setNome] = useState("");
