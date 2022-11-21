@@ -1,23 +1,23 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ContextAPI  from "./ContextAPI";
-// import { Link } from "react-router-dom";
+import ContextAPI from "./ContextAPI";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const { setUsuario, usuario } = useContext(ContextAPI);
     const navigate = useNavigate();
 
-    function desconectar(){
-        localStorage.removeItem()
+    function desconectar() {
+        localStorage.clear()
+        setUsuario([])
         navigate("/");
-        setUsuario("")
     }
 
     return (
         <ContainerRegistro>
             <Header>
-                <div>Olá,`${usuario}`</div>
+                <div>Olá, {usuario.name}</div>
                 <div><ion-icon name="exit-outline" onClick={desconectar}></ion-icon></div>
             </Header>
             <Registro>
@@ -27,18 +27,26 @@ export default function Login() {
                 </p>
             </Registro>
             <Entradas>
-                <NovaEntrada>
-                    <div><ion-icon name="add-circle-outline"></ion-icon></div>
-                    <p>nova <br></br> entrada</p></NovaEntrada>
-                <NovaSaida>
-                    <div><ion-icon name="remove-circle-outline"></ion-icon></div>
-                    <p>nova <br></br> saída</p>
-                </NovaSaida>
+                <Link to="/input">
+                    <NovaEntrada>
+                        <div><ion-icon name="add-circle-outline"></ion-icon></div>
+                        <p>nova <br></br> entrada</p>
+                    </NovaEntrada>
+                </Link>
+                <Link to="/output">
+                    <NovaSaida>
+                        <div><ion-icon name="remove-circle-outline"></ion-icon></div>
+                        <p>nova <br></br> saída</p>
+                    </NovaSaida>
+                </Link>
             </Entradas>
         </ContainerRegistro>
     )
 }
 const ContainerRegistro = styled.div`
+a{
+    text-decoration: none;
+}
 display: flex;
 justify-content: center;
 align-items: center;

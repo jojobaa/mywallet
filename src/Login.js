@@ -1,14 +1,22 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import icon from "./images/MyWallet.png"
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import ContextAPI  from "./ContextAPI";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [carregando, setCarregando] = useState(false);
+    const { setUsuario, usuario } = useContext(ContextAPI);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const localData = usuario;
+        if (Object.keys(localData).length !== 0) {
+        }
+    });
 
     function dadosUsuario(e) {
         e.preventDefault();
@@ -22,7 +30,7 @@ export default function Login() {
             }
         );
         promise1.then((answer) => {
-            // console.log(answer.data);
+            setUsuario(answer.data);
             navigate("/registration", {});
         });
 
