@@ -1,30 +1,57 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import icon from "./images/MyWallet.png"
+import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [carregando, setCarregando] = useState(false);
+    const navigate = useNavigate();
+
+    function dadosUsuario(e) {
+        e.preventDefault();
+        setCarregando(true);
+
+        const promise1 = axios.post(
+            "http://localhost:5000/sign-in",
+            {
+                email: email,
+                password: senha,
+            }
+        );
+        promise1.then((answer) => {
+            // console.log(answer.data);
+            navigate("/registration", {});
+        });
+
+        promise1.catch((error) => {
+            alert(error.response.data.message);
+            setCarregando(false);
+        });
+    }
+
     return (
         <LoginInputs>
             <Header><img src={icon} alt="" /></Header>
             <FormContainer>
-                <form onSubmit="">
+                <form onSubmit={dadosUsuario}>
                     <input
-                        data-identifier="input-email"
-                        type={'text'}
+                        type={'email'}
                         placeholder={"E-mail"}
-                        // onChange={(e) => "setEmail(e.target.value)"}
-                        // disabled="{carregando}"
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={carregando}
                         color={"#DBDBDB"}
                     ></input>
                     <input
-                        data-identifier="input-password"
-                        type={'text'}
+                        type={'password'}
                         placeholder={"Senha"}
-                        // onChange={(e) => "setSenha(e.target.value)"}
-                        // disabled="{carregando}">
-                    ></input>
-                    <button data-identifier="login-btn" text={"Entrar"} disabled="{carregando}">Entrar</button>
-                    <Link to="/cadastre"><p data-identifier="sign-up-action">Primeira vez? Cadastre-se!</p></Link>
+                        onChange={(e) => setSenha(e.target.value)}
+                        disabled={carregando}>
+                    </input>
+                    <button text={"Entrar"} disabled={carregando}>Entrar</button>
+                    <Link to="/cadastre"><p>Primeira vez? Cadastre-se!</p></Link>
                 </form>
             </FormContainer>
         </LoginInputs>

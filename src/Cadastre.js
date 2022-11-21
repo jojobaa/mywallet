@@ -1,38 +1,65 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import icon from "./images/MyWallet.png"
+import { useState } from "react";
+import axios from "axios"
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
+    const [senhaConfirmada, setSenhaConfirmada] = useState("");
+    const [carregando, setCarregando] = useState(false);
+    const navigate = useNavigate();
+
+    function dadosUsuarioCadastro(e) {
+        e.preventDefault();
+        setCarregando(true)
+        const promise1 = axios.post(
+            "http://localhost:5000/sign-up",
+            {
+                email: email,
+                name: nome,
+                password: senha,
+            }
+        );
+
+        promise1.then(() =>
+            navigate("/", {
+            })
+        );
+
+        promise1.catch((error) => {
+            alert(error.response.data.message)
+            setCarregando(false)
+        })
+    }
     return (
         <CadastreInputs>
             <Header><img src={icon} alt='' /></Header>
-            <form onSubmit="{dadosUsuarioCadastro}">
+            <form onSubmit={dadosUsuarioCadastro}>
                 <input
-                    data-identifier="input-email"
                     type={'text'}
                     placeholder={"Nome"}
-                // onChange={(e) => "setEmail(e.target.value)}" disabled="{carregando}"
+                    onChange={(e) => setNome(e.target.value)} disabled={carregando}
                 ></input>
                 <input
-                    data-identifier="input-password"
-                    type={'text'}
+                    type={'email'}
                     placeholder={"E-mail"}
-                // onChange={(e) => setSenha(e.target.value)} disabled={carregando}
+                    onChange={(e) => setEmail(e.target.value)} disabled={carregando}
                 ></input>
                 <input
-                    data-identifier="input-name"
-                    type={'text'}
+                    type={'password'}
                     placeholder={"Senha"}
-                // onChange={(e) => setNome(e.target.value)} disabled={carregando}
+                    onChange={(e) => setSenha(e.target.value)} disabled={carregando}
                 ></input>
                 <input
-                    data-identifier="input-photo"
-                    type={'text'}
+                    type={'password'}
                     placeholder={"Confirme a senha"}
-                // onChange={(e) => setImagem(e.target.value)} disabled={carregando}
+                    onChange={(e) => setSenhaConfirmada(e.target.value)} disabled={carregando}
                 ></input>
-                <button>Cadastrar</button>
-                <Link to="/"><p data-identifier="back-to-login-action">Já tem uma conta? Entre agora!</p></Link>
+                <button disabled={carregando}>Cadastrar</button>
+                <Link to="/"><p>Já tem uma conta? Entre agora!</p></Link>
             </form>
         </CadastreInputs>
     )

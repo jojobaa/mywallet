@@ -1,12 +1,24 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import ContextAPI  from "./ContextAPI";
 // import { Link } from "react-router-dom";
 
 export default function Login() {
+    const { setUsuario, usuario } = useContext(ContextAPI);
+    const navigate = useNavigate();
+
+    function desconectar(){
+        localStorage.removeItem()
+        navigate("/");
+        setUsuario("")
+    }
+
     return (
         <ContainerRegistro>
             <Header>
-                <div>Olá, Fulano</div>
-                <div><ion-icon name="exit-outline"></ion-icon></div>
+                <div>Olá,`${usuario}`</div>
+                <div><ion-icon name="exit-outline" onClick={desconectar}></ion-icon></div>
             </Header>
             <Registro>
                 <p>
