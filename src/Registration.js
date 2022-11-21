@@ -36,10 +36,10 @@ export default function Registration() {
                 <div>Olá, {usuario.name}</div>
                 <div><ion-icon name="exit-outline" onClick={desconectar}></ion-icon></div>
             </Header>
-            <Registro justifycontent={registration?.registration?.length === 0 ? "center" : "flex-start"}>
-                {registration?.registration?.length === 0 ? <p>Não há registros de entrada ou saída.</p> :
+            <Registro justifycontent={registration?.userRegistrations?.length === 0 ? "center" : "flex-start"}>
+                {registration?.userRegistrations?.length === 0 ? <p>Não há registros de entrada ou saída.</p> :
                     <>
-                        {registration?.registration?.map((registration) => (
+                        {registration?.userRegistrations?.map((registration) => (
                             <Registros key={registration._id}>
                                 <Valores>
                                     <Info fontweight="400" fontsize="16px" lineheight="18.78px" color="#C6C6C6">{registration.createdAt}</Info>
@@ -47,14 +47,12 @@ export default function Registration() {
                                         {registration.description}
                                     </Info>
                                 </Valores>
-                                <>
-                                    <Info fontweight="400" fontsize="16px" lineheight="18.78px" justiyself="end" color={registration.type === "income" ? "#03AC00" : "#C70000"}>{registration.price.toFixed(2).replace(".", ",")}</Info>
-                                </>
+                                <Info fontweight="400" fontsize="16px" lineheight="18.78px" justiyself="end" color={registration.type === "input" ? "#03AC00" : "#C70000"}>{registration.valor.toFixed(2).replace(".", ",")}</Info>
                             </Registros>
                         ))}
                     </>}
             </Registro>
-            <Saldo display={registration?.registration?.length === 0 ? "none" : "flex"}>
+            <Saldo display={registration?.userRegistrations?.length === 0 ? "none" : "flex"}>
                 <Info fontweight="700" fontsize="17px" lineheight="19.96px" color="#000000">SALDO</Info>
                 <Info fontweight="400" fontsize="17px" lineheight="19.96px" color={registration?.balance < 0 ? "#C70000" : "#03AC00"}>{registration?.balance}</Info>
             </Saldo>
@@ -107,12 +105,12 @@ div{
 }
 `
 const Registro = styled.div`
+justify-content: ${(props) => props.justifycontent};
+display:flex;
 width: 326px;
 height: 446px;
 background-color:#FFFFFF;
-display: flex;
 align-items: center;
-justify-content: center;
 p{
     width: 180px;
     height: 46px;
@@ -153,11 +151,14 @@ height: 114px;
 margin:10px;
 `
 const Registros = styled.div`
-justify-content: ${(props) => props.justifycontent};
-display:flex;
+width: 305px;
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
 `
 const Valores = styled.div`
-display:flex;
+display: flex;
 justify-content: flex-start;
 `
 const Info = styled.div`
@@ -171,5 +172,16 @@ margin-right: ${(props) => props.marginright};
 justify-self: ${(props) => props.justiyself};
 `
 const Saldo = styled.div`
-display:flex;
+width: 326px;
+height: 58px;
+display: ${(props) => props.display};
+justify-content: space-between;
+border-bottom-left-radius: 5px;
+border-bottom-right-radius: 5px;
+background-color: #ffffff;
+padding-top: 23px;
+padding-left: 12px;
+padding-right: 12px;
+padding-bottom: 12px;
+box-sizing: border-box;
 `
